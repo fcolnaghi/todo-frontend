@@ -1,18 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="todo">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>TODO List</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+<meta charset="UTF-8">
+<title>TODO Angular Frontend</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<style>
+.search {
+	margin-top: 5px;
+}
+</style>
 </head>
-<body>
-	
-	<div class="well">Front no angular...</div>
-	
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/angular-animate.min.js"></script>
-	<script type="text/javascript" src="js/angular-loader.min.js"></script>
+<body ng-view>
+
+	<div class="container-fluid">
+		<div class="row" ng-controller="TodoController">
+			<div class="col-md-3">
+				<div class="input-group search">
+					<input type="email" ng-model="todo.email" class="form-control" placeholder="Insira seu e-mail"> <span class="input-group-btn">
+						<button class="btn btn-default" ng-click="listar()" type="button">Listar</button>
+					</span>
+				</div>
+				<hr>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Criar novo To-Do</h3>
+					</div>
+					<div class="panel-body">
+						<form name="todoForm">
+							<div class="form-group">
+								<input type="text" required ng-model="todo.title" class="form-control" id="title" name="title" placeholder="Título do TO-DO">
+							</div>
+							<div class="form-group">
+								<textarea required ng-model="todo.description" class="form-control" id="description" name="description" placeholder="Qual a atividade"></textarea>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-success btn-block" ng-click="salvar()" ng-disabled="todoForm.$invalid">Adicionar To-Do</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<!--Body content-->
+				<div class="panel panel-default search">
+					<div class="panel-heading">
+						<h3 class="panel-title">Lista de TODOs</h3>
+					</div>
+					<div class="panel-body">
+						<input ng-model="filtro" class="form-control search" placeholder="Filtre seus TODOs">
+						<hr>
+						<table class="table table-striped">
+							<tr>
+								<th width="5%">#</th>
+								<th width="35%">Título</th>
+								<th width="50%">Descrição</th>
+								<th></th>
+							</tr>
+							<tr ng-repeat="todo in todolist | filter:filtro">
+								<td>{{todo.id}}</td>
+								<td>{{todo.title}}</td>
+								<td>{{todo.description}}</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>	
+	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/angular-resource.min.js"></script>
+	<script type="text/javascript" src="js/angular-loader.min.js"></script>
 	<script type="text/javascript" src="js/angular-route.min.js"></script>
+	<script type="text/javascript" src="js/restangular.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/application.js"></script>
 </body>
 </html>
